@@ -7,15 +7,15 @@ pipeline {
     
     
     environment {
-        SONAR_HOST_URL = 'http://13.229.132.42:9000//' // Update with your SonarQube server URL
-        SONAR_LOGIN = credentials('sonar-token') // Credentials ID for SonarQube access token
+        SONAR_HOST_URL = 'http://54.89.218.191:9000//' // Update with your SonarQube server URL
+        SONAR_LOGIN = credentials('sonar token') // Credentials ID for SonarQube access token
     }
     
     
     stages {
         stage('Git Checkout') {
            steps {
-                checkout scmGit(branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/venugopalsgnew/JavaAppDockerized.git']])
+                checkout scmGit(branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/prathikss185/JavaAppDockerized.git']])
             } 
         }
         
