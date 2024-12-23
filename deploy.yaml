@@ -14,6 +14,6 @@ spec:
     spec:
       containers:
       - name: my-container
-        image: 585008051018.dkr.ecr.us-east-1.amazonaws.com/welcomeinandout/inandout2:latest
+        image: docker tag welldone:latest 850995571363.dkr.ecr.us-east-1.amazonaws.com/welldone:latest
       imagePullSecrets:
         - name: ecr-registry
