@@ -86,8 +86,10 @@ pipeline {
                         git pull origin master
           
                         # Modify deploy.yaml using sed to update the Docker image
-                        sed -i "s|${ECR_REGISTRY}:.*|${ECR_REGISTRY}:${dockerImageTag}|" deploy.yaml
-                        
+                        #sed -i "s|${ECR_REGISTRY}:.*|${ECR_REGISTRY}:${dockerImageTag}|" deploy.yaml
+                        sed -i s|850995571363.dkr.ecr.us-east-1.amazonaws.com/welldone:.*|850995571363.dkr.ecr.us-east-1.amazonaws.com/welldone:latest| deploy.yaml
+
+
                         # Verify the current directory again
                         pwd
                         
