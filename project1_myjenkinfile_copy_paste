@@ -10,9 +10,9 @@ pipeline {
     }
 
     environment {
-        SONAR_HOST_URL = 'http://54.146.196.146:9000' // Update with your SonarQube server URL
-        SONAR_LOGIN = credentials('sonar_access_key') // Credentials ID for SonarQube access token
-        ECR_REGISTRY = "585008051018.dkr.ecr.us-east-1.amazonaws.com/welcomeinandout/inandout2"
+        SONAR_HOST_URL = 'http://3.87.92.243:9000/' // Update with your SonarQube server URL
+        SONAR_LOGIN = credentials('sonar-token') // Credentials ID for SonarQube access token
+        ECR_REGISTRY = "85008051018.dkr.ecr.us-east-1.amazonaws.com/welldone"
         // Set the name of your Docker image
         dockerImageTag = "${env.BUILD_NUMBER}"
     }
@@ -21,7 +21,7 @@ pipeline {
         stage('Git Checkout') {
             steps {
                 // Correct syntax for Git checkout
-                checkout scmGit(branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/prathikss185/JavaAppDockerized.git']])
+                checkout scmGit(branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/prathikss185/JavaAppDockerized_project1.git']])
             }
         }
 
@@ -55,7 +55,7 @@ pipeline {
             steps {
                 script {
                     // Log in to ECR
-                    sh 'aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 585008051018.dkr.ecr.us-east-1.amazonaws.com'
+                    sh 'aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 850995571363.dkr.ecr.us-east-1.amazonaws.com'
                     // Push Docker image to ECR
                     sh "docker push ${ECR_REGISTRY}:${dockerImageTag}"
                 }
@@ -67,13 +67,13 @@ pipeline {
                 GIT_REPO_NAME = "prathikss185/JavaAppDockerized.git"
                 GIT_USER_NAME = "prathikss185"
                 // Ensure these are set in the pipeline or passed as parameters
-                ECR_REGISTRY = '585008051018.dkr.ecr.us-east-1.amazonaws.com/welcomeinandout/inandout2'
+                ECR_REGISTRY = '585008051018.dkr.ecr.us-east-1.amazonaws.com/welldone'
                 dockerImageTag = 'latest'  // or any tag you'd like to use
              }
             steps {
                      sh '''
                         # Clone the public repository using HTTPS (no credentials required for public repos)
-                        git clone https://github.com/prathikss185/JavaAppDockerized.git
+                        git clone https://github.com/prathikss185/JavaAppDockerized_project1.git
           
                         # Change into the repository directory
                         cd JavaAppDockerized
@@ -105,7 +105,7 @@ pipeline {
                         git commit -m "Update image in deploy.yaml"
                         
                         # Push the changes back to the master branch (or a feature branch if needed)
-                        git push https://prathikss185:ghp@github.com/prathikss185/JavaAppDockerized.git HEAD:master
+                        git push https://prathikss185:ghp@github.com/prathikss185/JavaAppDockerized_project1.git HEAD:master
                 '''
                  }
             }
@@ -113,7 +113,7 @@ pipeline {
         stage('Deploy updated manifest to k8 Cluster') {
             steps {
                 script {
-                  kubeconfig(credentialsId: 'KUBE_CONFIG', serverUrl: 'https://172.31.32.237:6443') {
+                  kubeconfig(credentialsId: 'kube_config', serverUrl: 'https://172.31.30.35:6443') {
                     sh '''
                       kubectl apply -f deploy.yaml
                       kubectl apply -f service.yaml
