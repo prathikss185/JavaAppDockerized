@@ -64,7 +64,7 @@ pipeline {
 
         stage('Update deployment.yaml') {
             environment {
-                GIT_REPO_NAME = "prathikss185/JavaAppDockerized.git"
+                GIT_REPO_NAME = "prathikss185/JavaAppDockerized_project1.git"
                 GIT_USER_NAME = "prathikss185"
                 // Ensure these are set in the pipeline or passed as parameters
                 ECR_REGISTRY = '850995571363.dkr.ecr.us-east-1.amazonaws.com/welldone'
@@ -76,7 +76,7 @@ pipeline {
                         git clone https://github.com/prathikss185/JavaAppDockerized_project1.git
           
                         # Change into the repository directory
-                        cd JavaAppDockerized
+                        cd JavaAppDockerized_project1
           
                         # Verify the current directory and list files
                         pwd
